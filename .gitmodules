@@ -1,0 +1,3 @@
+[submodule "third_party/recastnavigation"]
+	path = third_party/recastnavigation
+	url = https://github.com/recastnavigation/recastnavigation.git

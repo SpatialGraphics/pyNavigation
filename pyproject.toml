@@ -1,0 +1,52 @@
+[build-system]
+requires = ["scikit-build-core >=0.4.3", "numpy<=1.26.4", "setuptools<=72.1.0"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "pyNavigation"
+version = "0.0.1"
+description = "navigation in Python"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+    { name = "Feng Yang", email = "yangfengzzz@hotmail.com" },
+]
+classifiers = [
+    "License :: OSI Approved :: BSD License",
+]
+
+[project.urls]
+Homepage = "https://github.com/SpatialGraphics/pyNavigation"
+
+[tool.scikit-build]
+# Protect the configuration against future changes in scikit-build-core
+minimum-version = "0.4"
+
+# Setuptools-style build caching in a local directory
+build-dir = "build/{wheel_tag}"
+
+# Build stable ABI wheels for CPython 3.12+
+wheel.py-api = "cp312"
+
+[tool.scikit-build.cmake.define]
+CMAKE_TOOLCHAIN_FILE = "~/.vcpkg-clion/vcpkg/scripts/buildsystems/vcpkg.cmake"
+BUILD_PYTHON_INTERFACE = "OFF" # prevent pinocchio compile python
+ENABLE_TEMPLATE_INSTANTIATION = "OFF" # prevent pinocchio compile python
+
+[tool.cibuildwheel]
+# Necessary to see build output from the actual compilation
+build-verbosity = 1
+
+# Run pytest to ensure that the package was correctly built
+test-command = "pytest {project}/tests"
+test-requires = "pytest"
+
+# Don't test Python 3.8 wheels on macOS/arm64
+test-skip = "cp38-macosx_*:arm64"
+
+# Needed for full C++17 support
+[tool.cibuildwheel.macos.environment]
+MACOSX_DEPLOYMENT_TARGET = "10.14"
+
+[tool.scikit-build.cmake]
+build-type = "Release"
