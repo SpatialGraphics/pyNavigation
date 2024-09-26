@@ -28,6 +28,8 @@ add_subdirectory(third_party)
 # ==================================================================================================
 set(BINDING_FILES
         src/py_binding/py_navigation_ext.cpp
+
+        src/py_binding/py_detour.cpp
 )
 
 # We are now ready to compile the actual extension module

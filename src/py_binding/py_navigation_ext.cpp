@@ -9,6 +9,10 @@
 namespace nb = nanobind;
 using namespace nb::literals;
 
+void bindDetourNavMesh(nb::module_& m);
+
 NB_MODULE(py_navigation_ext, m) {
     m.doc() = "python binding for navigation";
+
+    bindDetourNavMesh(m);
 }
